@@ -1,9 +1,14 @@
 'use strict';
 
 // Imports dependencies and set up http server
+require('dotenv/config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
+const PSID = process.env.PSID;
 app.use(bodyParser.json());
 
 // Creates the endpoint for our webhook
@@ -14,31 +19,29 @@ app.post('/webhook', (req, res) => {
 
 	if (intentName === 'teste') {
 		res.json({
-			fulfillmentMessages: [
-				{
-					text: {
-						text: [ 'Text response from webhook' ]
+			"recipient": {
+				"id": PSID
+			},
+			"messaging_type": "RESPONSE",
+			"message": {
+				"text": "Pick a color:",
+				"quick_replies": [
+					{
+						"content_type": "text",
+						"title": "Esporte",
+						"payload": "<POSTBACK_PAYLOAD>",
+						"image_url": ""
+					},
+					{
+						"content_type": "text",
+						"title": "Política",
+						"payload": "<POSTBACK_PAYLOAD>",
+						"image_url": ""
 					}
-				}
-			]
+				]
+			}
 		});
 	}
-
-	// // Checks this is an event from a page subscription
-	// if (body.object === 'page') {
-	// 	// Iterates over each entry - there may be multiple if batched
-	// 	body.entry.forEach(function(entry) {
-	// 		// Gets the message. entry.messagin is an array but will only ever contain one message, so we get index 0
-	// 		let webhook_event = entry.messaging[0];
-	// 		console.log(webhook_event);
-	// 	});
-
-	// 	// Returns a '200 OK' response to all request
-	// 	res.status(200).send('EVENT_RECEIVED');
-	// } else {
-	// 	// Returns a '404 Not Found' if event is not from a page subscription
-	// 	res.sendStatus(404);
-	// }
 });
 
 app.get('/webhook', (req, res) => {
