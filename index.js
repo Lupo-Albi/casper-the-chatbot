@@ -19,27 +19,15 @@ app.post('/webhook', (req, res) => {
 
 	if (intentName === 'teste') {
 		res.json({
-			"recipient": {
-				"id": PSID
-			},
-			"messaging_type": "RESPONSE",
-			"message": {
-				"text": "Pick a color:",
-				"quick_replies": [
-					{
-						"content_type": "text",
-						"title": "Esporte",
-						"payload": "<POSTBACK_PAYLOAD>",
-						"image_url": ""
+			"fulfillmentMessages": [
+				{
+					"quickReplies": {
+						"title": "AAA",
+						"quickReplies": [ "BBB", "CCC" ]
 					},
-					{
-						"content_type": "text",
-						"title": "Política",
-						"payload": "<POSTBACK_PAYLOAD>",
-						"image_url": ""
-					}
-				]
-			}
+					"platform": "FACEBOOK"
+				}
+			]
 		});
 	}
 });
