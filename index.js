@@ -21,21 +21,16 @@ app.post('/webhook', (req, res) => {
 		res.json({
 			"fulfillmentMessages": [
 				{
-					"quickReplies": [
-						{
-							"content_type": "text",
-							"title": "Red",
-							"payload": "<POSTBACK_PAYLOAD>",
-							"image_url": "https://freepngimg.com/thumb/emoji/1-2-wink-emoji-png-thumb.png"
-						},
-						{
-							"content_type": "text",
-							"title": "Green",
-							"payload": "<POSTBACK_PAYLOAD>",
-							"image_url": "https://freepngimg.com/thumb/emoji/1-2-wink-emoji-png-thumb.png"
-						}
-					],
+					"quickReplies": {
+						"title": "AAA",
+						"quickReplies": [ "Esportes", "Política", "Entretenimento", "Famosos"]
+					},
 					"platform": "FACEBOOK"
+				},
+				{
+					"text": {
+						"text": [ "Dummy Text" ]
+					}
 				}
 			]
 		});
