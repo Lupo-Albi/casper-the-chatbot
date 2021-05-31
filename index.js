@@ -17,24 +17,31 @@ app.post('/webhook', (req, res) => {
 
 	let intentName = body.queryResult.intent.displayName;
 
-	if (intentName === 'teste') {
-		res.json({
-			"fulfillmentMessages": [
-				{
-					"quickReplies": {
-						"title": "AAA",
-						"quickReplies": [ "Esportes", "Política", "Entretenimento", "Famosos"]
+	const allIntents = {
+		newsPolitica() {
+			res.json({
+				"fulfillmentMessages": [
+					{
+						"quickReplies": {
+							"title": "Resposta Rápida dentro do intent",
+							"quickReplies": [ "Esportes", "Política", "Entretenimento", "Famosos" ]
+						},
+						"platform": "FACEBOOK"
 					},
-					"platform": "FACEBOOK"
-				},
-				{
-					"text": {
-						"text": [ "Dummy Text" ]
+					{
+						"text": {
+							"text": [ "Dummy Text" ]
+						}
 					}
-				}
-			]
-		});
-	}
+				]
+			});
+		},
+		newsEsportes() {},
+		newsEntretenimento() {},
+		newsFamosos() {}
+	};
+
+	allIntents[intentName]();
 });
 
 app.get('/webhook', (req, res) => {
