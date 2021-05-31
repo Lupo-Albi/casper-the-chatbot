@@ -21,10 +21,20 @@ app.post('/webhook', (req, res) => {
 		res.json({
 			"fulfillmentMessages": [
 				{
-					"quickReplies": {
-						"title": "AAA",
-						"quickReplies": [ "BBB", "CCC" ]
-					},
+					"quickReplies": [
+						{
+							"content_type": "text",
+							"title": "Red",
+							"payload": "<POSTBACK_PAYLOAD>",
+							"image_url": "https://freepngimg.com/thumb/emoji/1-2-wink-emoji-png-thumb.png"
+						},
+						{
+							"content_type": "text",
+							"title": "Green",
+							"payload": "<POSTBACK_PAYLOAD>",
+							"image_url": "https://freepngimg.com/thumb/emoji/1-2-wink-emoji-png-thumb.png"
+						}
+					],
 					"platform": "FACEBOOK"
 				}
 			]
