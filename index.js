@@ -1,24 +1,12 @@
 'use strict';
 // Imports dependencies and set up http server
-// require('dotenv/config');
+require('dotenv/config');
+require('./initDB')();
 const express = require('express');
 const methodOverride = require('method-override');
 const path = require('path');
-const mongoose = require('mongoose');
 const app = express();
 const Noticia = require('./models/noticia');
-
-mongoose.connect('mongodb://localhost:27017/casperApp', {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-	useCreateIndex: true
-});
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console.log, 'Connection error:'));
-db.once('open', () => {
-	console.log('Database connected');
-});
 
 app.use(express.urlencoded({ extended: true }));
 // app.use(express.json());
