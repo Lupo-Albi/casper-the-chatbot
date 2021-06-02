@@ -10,16 +10,20 @@
         <input type="text" name="noticia[subtitle]" id="subtitle" maxlength="200" value="<%- noticia.subtitle %>">
     </div>
     <div>
-        <label for="image_url">Insira o link da imagem da notícia:</label>
+        <label for="image_url">Insira o link da imagem:</label>
         <input type="url" name="noticia[image_url]" id="image_url" placeholder="https://example.com" value="<%- noticia.image_url %>">
+    </div>
+    <div>
+        <label for="url">Insira o link da notícia:</label>
+        <input type="url" name="noticia[url]" id="url" placeholder="https://example.com" value="<%- noticia.url %>">
     </div>
     <div>
         <label for="theme">Escolha o tema da notícia:    </label>
         <select name="noticia[theme]" id="theme">
-            <option value="Esportes">Esportes</option>
-            <option value="Famosos">Famosos</option>
-            <option value="Entretenimento">Entretenimento</option>
-            <option value="Politica">Política</option>
+            <option value="esportes">Esportes</option>
+            <option value="famosos">Famosos</option>
+            <option value="entretenimento">Entretenimento</option>
+            <option value="politica">Política</option>
         </select>
     </div>
     <div>

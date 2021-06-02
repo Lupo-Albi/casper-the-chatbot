@@ -6,9 +6,13 @@
 
 <h3>Tema: <%= noticia.theme %> </h3>
 
+<a href="<%- noticia.url %>">Acesse Aqui</a>
+
 <p><%= noticia.content %> </p>
 
-<p><%= noticia.image_url %> </p>
+<!-- <p><%= // noticia.image_url %> </p> -->
+
+<img src="<%= noticia.image_url %>" alt="">
 
 <form method="GET" action="/noticias/<%- noticia._id %>/edit">
     <button>Editar notícia</button>

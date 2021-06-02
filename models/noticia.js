@@ -17,7 +17,7 @@ const noticiaSchema = new Schema({
 	},
 	theme: {
 		type: String,
-		enum: [ 'Política', 'Esportes', 'Entretenimento', 'Famosos' ],
+		enum: [ 'politica', 'esportes', 'entretenimento', 'famosos' ],
 		required: true
 	},
 	url: { type: String },
