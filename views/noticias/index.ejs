@@ -1,0 +1,16 @@
+<%-  include('../partials/header') %>
+
+    <h1>Im the index</h1>
+
+    <h2>Vou te mostrar todas as notícias que temos em nosso banco de dados</h2>
+
+    <ul>
+        <% for(let noticia of noticias) { %> 
+            <li><a href="/noticias/<%- noticia._id %>"><%= noticia.title %></a> </li>
+        <% } %>  
+    </ul>
+
+    <form method="GET" action="/noticias/new"><button>Criar Notícia</button>
+    </form>
+
+<%- include('../partials/footer') %>

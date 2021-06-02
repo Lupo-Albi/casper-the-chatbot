@@ -1,0 +1,21 @@
+<%-  include('../partials/header') %>
+
+<h1><%= noticia.title %> </h1>
+
+<h2><%= noticia.subtitle %> </h2>
+
+<h3>Tema: <%= noticia.theme %> </h3>
+
+<p><%= noticia.content %> </p>
+
+<p><%= noticia.image_url %> </p>
+
+<form method="GET" action="/noticias/<%- noticia._id %>/edit">
+    <button>Editar notícia</button>
+</form>
+
+<form method="GET" action="/noticias">
+    <button>Voltar para casa</button>
+</form>
+
+<%- include('../partials/footer') %>

@@ -1,15 +1,74 @@
 'use strict';
-
 // Imports dependencies and set up http server
-require('dotenv/config');
+// require('dotenv/config');
 const express = require('express');
-const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+const path = require('path');
+const mongoose = require('mongoose');
 const app = express();
+const Noticia = require('./models/noticia');
 
-const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
-const PSID = process.env.PSID;
-app.use(bodyParser.json());
+mongoose.connect('mongodb://localhost:27017/casperApp', {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useCreateIndex: true
+});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console.log, 'Connection error:'));
+db.once('open', () => {
+	console.log('Database connected');
+});
+
+app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+app.use(methodOverride('_method'));
+app.set('views', path.join(__dirname, '/views'));
+app.set('view engine', 'ejs');
+
+app.get('/noticias', async (req, res) => {
+	const noticias = await Noticia.find();
+	res.render('noticias/index', { title: 'Notícias', noticias });
+	// console.log('Get index view');
+});
+
+app.get('/noticias/new', (req, res) => {
+	res.render('noticias/new', { title: 'Criar nova notícia' });
+	// console.log('Get new view')
+});
+
+app.get('/noticias/:id', async (req, res) => {
+	const { id } = req.params;
+	const noticia = await Noticia.findById(id);
+	res.render('noticias/show', { title: noticia.title, noticia });
+	// console.log('Get show view');
+});
+
+app.get('/noticias/:id/edit', async (req, res) => {
+	const { id } = req.params;
+	const noticia = await Noticia.findById(id);
+	res.render('noticias/edit', { title: 'Editar', noticia });
+	// console.log('Get edit view');
+});
+
+app.put('/noticias/:id', async (req, res) => {
+	const { id } = req.params;
+	const noticia = await Noticia.findByIdAndUpdate(id, { ...req.body.noticia }, { useFindAndModify: false });
+	res.redirect(`/noticias/${noticia._id}`);
+});
+
+app.post('/noticias', async (req, res) => {
+	const noticia = new Noticia(req.body.noticia);
+	await noticia.save();
+	res.redirect('/noticias');
+	// console.log("Post new noticia")
+});
+
+app.delete('/noticias/:id', async (req, res) => {
+	const { id } = req.params;
+	await Noticia.findByIdAndDelete(id);
+	res.redirect('/noticias');
+});
 
 // Creates the endpoint for our webhook
 app.post('/webhook', (req, res) => {
@@ -19,17 +78,17 @@ app.post('/webhook', (req, res) => {
 
 	if (intentName === 'teste') {
 		res.json({
-			"fulfillmentMessages": [
+			fulfillmentMessages: [
 				{
-					"quickReplies": {
-						"title": "AAA",
-						"quickReplies": [ "Esportes", "Política", "Entretenimento", "Famosos"]
+					quickReplies: {
+						title: 'AAA',
+						quickReplies: [ 'Esportes', 'Política', 'Entretenimento', 'Famosos' ]
 					},
-					"platform": "FACEBOOK"
+					platform: 'FACEBOOK'
 				},
 				{
-					"text": {
-						"text": [ "Dummy Text" ]
+					text: {
+						text: [ 'Dummy Text' ]
 					}
 				}
 			]
@@ -61,4 +120,4 @@ app.get('/webhook', (req, res) => {
 });
 
 // Sets server port and logs message on success
-app.listen(process.env.PORT || 3000, () => console.log('webhook is listening'));
+app.listen(process.env.PORT || 3000, () => console.log('app is listening'));
