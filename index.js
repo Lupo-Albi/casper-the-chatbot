@@ -7,7 +7,7 @@ const methodOverride = require('method-override');
 const path = require('path');
 const app = express();
 const noticiasRoutes = require('./routes/noticias');
-const Noticia = require('./models/noticia');
+const ExpressError = require('./utils/ExpressError');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -23,13 +23,12 @@ app.post('/webhook', (req, res) => {
 	let intentName = body.queryResult.intent.displayName;
 
 	const allIntents = {
-		async newsPolitica() {
-			let politica = new Noticia.findOne({ theme: 'politica' });
+		newsPolitica() {
 			res.json({
 				fulfillmentMessages: [
 					{
 						quickReplies: {
-							title: politica.title,
+							title: 'Resposta Rápida dentro do intent',
 							quickReplies: [ 'Esportes', 'Política', 'Entretenimento', 'Famosos' ]
 						},
 						platform: 'FACEBOOK'
@@ -71,6 +70,16 @@ app.get('/webhook', (req, res) => {
 			res.sendStatus(403);
 		}
 	}
+});
+
+app.all('*', (req, res, next) => {
+	next(new ExpressError('Page Not Found', 404));
+});
+
+app.use((err, req, res, next) => {
+	const { statusCode = 500, message = 'Something went wrong' } = err;
+	if (!err.message) err.message = 'Algo deu errado';
+	res.status(statusCode).render('error', { title: 'Error', err });
 });
 
 // Sets server port and logs message on success
