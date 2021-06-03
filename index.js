@@ -6,57 +6,15 @@ const express = require('express');
 const methodOverride = require('method-override');
 const path = require('path');
 const app = express();
+const noticiasRoutes = require('./routes/noticias');
 const Noticia = require('./models/noticia');
 
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
+app.use(express.json());
 app.use(methodOverride('_method'));
+app.use('/noticias', noticiasRoutes);
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
-
-app.get('/noticias', async (req, res) => {
-	const noticias = await Noticia.find();
-	res.render('noticias/index', { title: 'Notícias', noticias });
-	// console.log('Get index view');
-});
-
-app.get('/noticias/new', (req, res) => {
-	res.render('noticias/new', { title: 'Criar nova notícia' });
-	// console.log('Get new view')
-});
-
-app.get('/noticias/:id', async (req, res) => {
-	const { id } = req.params;
-	const noticia = await Noticia.findById(id);
-	res.render('noticias/show', { title: noticia.title, noticia });
-	// console.log('Get show view');
-});
-
-app.get('/noticias/:id/edit', async (req, res) => {
-	const { id } = req.params;
-	const noticia = await Noticia.findById(id);
-	res.render('noticias/edit', { title: 'Editar', noticia });
-	// console.log('Get edit view');
-});
-
-app.put('/noticias/:id', async (req, res) => {
-	const { id } = req.params;
-	const noticia = await Noticia.findByIdAndUpdate(id, { ...req.body.noticia }, { useFindAndModify: false });
-	res.redirect(`/noticias/${noticia._id}`);
-});
-
-app.post('/noticias', async (req, res) => {
-	const noticia = new Noticia(req.body.noticia);
-	await noticia.save();
-	res.redirect('/noticias');
-	// console.log("Post new noticia")
-});
-
-app.delete('/noticias/:id', async (req, res) => {
-	const { id } = req.params;
-	await Noticia.findByIdAndDelete(id);
-	res.redirect('/noticias');
-});
 
 // Creates the endpoint for our webhook
 app.post('/webhook', (req, res) => {
@@ -65,12 +23,13 @@ app.post('/webhook', (req, res) => {
 	let intentName = body.queryResult.intent.displayName;
 
 	const allIntents = {
-		newsPolitica() {
+		async newsPolitica() {
+			let politica = new Noticia.findOne({ theme: 'politica' });
 			res.json({
 				fulfillmentMessages: [
 					{
 						quickReplies: {
-							title: 'Resposta Rápida dentro do intent',
+							title: politica.title,
 							quickReplies: [ 'Esportes', 'Política', 'Entretenimento', 'Famosos' ]
 						},
 						platform: 'FACEBOOK'
