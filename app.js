@@ -15,7 +15,8 @@ const User = require('./models/user');
 const app = express();
 const noticiasRoutes = require('./routes/noticias');
 const webhookRoute = require('./routes/webhook');
-const userRoute = require('./routes/user');
+const userRoute = require('./routes/users');
+// const MongoDBStore = require('connect-mongo');
 
 // View engine setup
 app.engine('ejs', ejsMate);
@@ -26,13 +27,28 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!'; //randomkeygen
+
+// const store = new MongoDBStore({
+// 	url: process.env.DB_URL,
+// 	secret,
+// 	touchAfter: 24 * 60 * 60
+// });
+
+// store.on('error', function(e) {
+// 	console.log('Session store error!', e);
+// });
+
 // Session
 const sessionConfig = {
-	secret: 'thisisnotagoodsecret',
+	// store,
+	name: 'session',
+	secret,
 	resave: false,
 	saveUninitialized: true,
 	cookie: {
 		httpOnly: true,
+		// secure: true,
 		expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1000 ms in a second, 60 seconds in a minute, 60 minutes in an hour, 24 hours in a day and 7 days in a week
 		maxAge: 1000 * 60 * 60 * 24 * 7
 	}

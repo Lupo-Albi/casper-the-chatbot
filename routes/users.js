@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const User = require('../models/user');
+
+// Register form
+router.get('/register', (req, res) => {
+	res.render('users/register');
+});
 
 // Login form
 router.get('/', (req, res) => {
