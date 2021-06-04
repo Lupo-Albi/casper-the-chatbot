@@ -16,6 +16,7 @@ const app = express();
 const noticiasRoutes = require('./routes/noticias');
 const webhookRoute = require('./routes/webhook');
 const userRoute = require('./routes/users');
+const mongoSanitize = require('express-mongo-sanitize');
 // const MongoDBStore = require('connect-mongo');
 
 // View engine setup
@@ -26,6 +27,7 @@ app.set('views', path.join(__dirname, '/views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
+app.use(mongoSanitize());
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!'; //randomkeygen
 
@@ -42,7 +44,7 @@ const secret = process.env.SECRET || 'thisshouldbeabettersecret!'; //randomkeyge
 // Session
 const sessionConfig = {
 	// store,
-	name: 'session',
+	name: 'casperSession',
 	secret,
 	resave: false,
 	saveUninitialized: true,
@@ -58,6 +60,7 @@ app.use(flash());
 
 // flash
 app.use((req, res, next) => {
+	res.locals.currentUser = req.user;
 	res.locals.success = req.flash('success');
 	res.locals.error = req.flash('error');
 	next();

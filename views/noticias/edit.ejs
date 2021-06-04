@@ -1,43 +1,41 @@
 <% layout('layouts/boilerplate')  %> 
 
-<form method="POST" action="/noticias/<%- noticia._id %>?_method=PUT">
-    <div>
-        <label for="title">Insira o título da notícia:</label>
-        <input type="text" name="noticia[title]" id="title" value="<%- noticia.title %>" >  
+<div class="row">
+    <h1 class="text-center">Editar Notícia</h1>
+    <div class="col-10 offset-1">
+        <form method="POST" action="/noticias/<%= noticia._id %>?_method=PUT">
+            <div>
+                <label for="title" class="form-label">Insira o título da notícia:</label>
+                <input type="text" name="noticia[title]" id="title" class="form-control" maxlength="80" value="<%= noticia.title %>"> 
+            </div>
+            <div>
+                <label for="subtitle" class="form-label">Descreva brevemente a notícia:</label>
+                <input type="text" name="noticia[subtitle]" id="subtitle" class="form-control" maxlength="80" value="<%= noticia.subtitle %>">
+            </div>
+            <label for="image_url" class="form-label">Insira o link da imagem:</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon">https://example.com</span>
+                <input type="url" name="noticia[image_url]" id="image_url" class="form-control" value="<%= noticia.image_url %>">
+            </div>
+            <label for="url" class="form-label">Insira o link da notícia:</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">https://example.com</span>
+                <input type="url" name="noticia[url]" id="url" class="form-control" value="<%= noticia.url %>">
+            </div>
+            <div class="input-group my-3">
+                <label for="theme" class="input-group-text" for="inputGroupSelect">Tema</label>
+                <select name="noticia[theme]" id="inputGroupSelect" class="form-select">
+                    <option value="Esportes">Esportes</option>
+                    <option value="Famosos">Famosos</option>
+                    <option value="Entretenimento">Entretenimento</option>
+                    <option value="Politica">Política</option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <span for="content" class="input-group-text">Escreva sua notícia:</span>
+                <textarea name="noticia[content]" id="content" class="form-control" cols="30" rows="5"><%= noticia.content %></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Salvar</button>
+        </form>
     </div>
-    <div>
-        <label for="subtitle">Descreva brevemente a notícia:</label>
-        <input type="text" name="noticia[subtitle]" id="subtitle" maxlength="200" value="<%- noticia.subtitle %>">
-    </div>
-    <div>
-        <label for="image_url">Insira o link da imagem:</label>
-        <input type="url" name="noticia[image_url]" id="image_url" placeholder="https://example.com" value="<%- noticia.image_url %>">
-    </div>
-    <div>
-        <label for="url">Insira o link da notícia:</label>
-        <input type="url" name="noticia[url]" id="url" placeholder="https://example.com" value="<%- noticia.url %>">
-    </div>
-    <div>
-        <label for="theme">Escolha o tema da notícia:    </label>
-        <select name="noticia[theme]" id="theme">
-            <option value="esportes">Esportes</option>
-            <option value="famosos">Famosos</option>
-            <option value="entretenimento">Entretenimento</option>
-            <option value="politica">Política</option>
-        </select>
-    </div>
-    <div>
-        <label for="content">Escreva sua notícia:</label>
-        <textarea name="noticia[content]" id="content" cols="30" rows="5"><%- noticia.content %></textarea>
-    </div>
-    <button>Editar Notícia</button>
-</form>
-
-<form method="GET" action="/noticias">
-    <button>Voltar para casa</button>
-</form>
-
-
-<form method="POST" action="/noticias/<%- noticia._id %>?_method=DELETE">
-    <button>DELETE</button>
-</form>
+</div>

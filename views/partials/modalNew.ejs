@@ -1,0 +1,53 @@
+<div class="modal fade" id="formNew" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Nova notícia</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-10 offset-1">
+                <form method="POST" action="/noticias">
+                    <div>
+                        <label for="title" class="form-label">Insira o título da notícia:</label>
+                        <input type="text" name="noticia[title]" id="title" class="form-control">
+                    </div>
+                    <div>
+                        <label for="subtitle" class="form-label">Descreva brevemente a notícia:</label>
+                        <input type="text" name="noticia[subtitle]" id="subtitle" class="form-control" maxlength="200">
+                    </div>
+                    <label for="image_url" class="form-label">Insira o link da imagem:</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon">https://example.com</span>
+                        <input type="url" name="noticia[image_url]" id="image_url" class="form-control">
+                    </div>
+                    <label for="url" class="form-label">Insira o link da notícia:</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon2">https://example.com</span>
+                        <input type="url" name="noticia[url]" id="url" class="form-control">
+                    </div>
+                    <div class="input-group my-3">
+                        <label for="theme" class="input-group-text" for="inputGroupSelect">Tema</label>
+                        <select name="noticia[theme]" id="inputGroupSelect" class="form-select">
+                            <option value="Esportes">Esportes</option>
+                            <option value="Famosos">Famosos</option>
+                            <option value="Entretenimento">Entretenimento</option>
+                            <option value="Politica">Política</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span for="content" class="input-group-text">Escreva sua notícia:</span>
+                        <textarea name="noticia[content]" id="content" class="form-control" cols="30" rows="5"></textarea>
+                    </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="submit" class="btn btn-primary">Criar</button>
+                </form>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>

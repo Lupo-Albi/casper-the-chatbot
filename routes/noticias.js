@@ -20,16 +20,16 @@ router.get('/new', isLoggedIn, (req, res) => {
 	// console.log('Get new view')
 });
 
-router.get(
-	'/:id',
-	isLoggedIn,
-	catchAsync(async (req, res) => {
-		const { id } = req.params;
-		const noticia = await Noticia.findById(id);
-		res.render('noticias/show', { title: noticia.title, noticia });
-		// console.log('Get show view');
-	})
-);
+// router.get(
+// 	'/:id',
+// 	isLoggedIn,
+// 	catchAsync(async (req, res) => {
+// 		const { id } = req.params;
+// 		const noticia = await Noticia.findById(id);
+// 		res.render('noticias/show', { title: noticia.title, noticia });
+// 		// console.log('Get show view');
+// 	})
+// );
 
 router.get(
 	'/:id/edit',
@@ -47,8 +47,8 @@ router.put(
 	isLoggedIn,
 	catchAsync(async (req, res) => {
 		const { id } = req.params;
-		const noticia = await Noticia.findByIdAndUpdate(id, { ...req.body.noticia }, { useFindAndModify: false });
-		res.redirect(`/noticias/${noticia._id}`);
+		await Noticia.findByIdAndUpdate(id, { ...req.body.noticia }, { useFindAndModify: false });
+		res.redirect('/noticias');
 	})
 );
 

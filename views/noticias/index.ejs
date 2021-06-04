@@ -6,11 +6,33 @@
 
     <h2>Vou te mostrar todas as notícias que temos em nosso banco de dados</h2>
 
-    <ul>
+    <div class="container my-3">
         <% for(let noticia of noticias) { %> 
-            <li><a href="/noticias/<%- noticia._id %>"><%= noticia.title %></a> </li>
+            <div class="row">
+                <div class="col-1"><a href="<%= noticia.image_url %>">Imagem</a></div>
+                <div class="col-3"><strong><%= noticia.title %></strong></div>
+                <div class="col-3"><%= noticia.subtitle %> </div>
+                <div class="col-2"><%= noticia.theme %> </div>
+                <div class="col-1"><a href="<%= noticia.url %>">Link</a></div>
+                <div class="col-1">
+                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                        <form method="GET" action="/noticias/<%= noticia._id %>/edit">
+                            <button type="submit" class="btn btn-outline-success"><i class="fas fa-edit"></i></button>
+                        </form>
+                        <form method="POST" action="/noticias/<%= noticia._id %>?_method=DELETE">
+                            <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                        </form>
+                      </div>
+                </div>
+            </div>
         <% } %>  
-    </ul>
+    </div>
 
-    <form method="GET" action="/noticias/new"><button>Criar Notícia</button>
+    <%- include('../partials/modalNew')  %> 
+
+    <div class="position-fixed bottom-0 end-0 translate-middle">
+        <button type="button" class="btn btn-lg btn-primary rounded-circle" data-bs-toggle="modal" data-bs-target="#formNew">
+            <i class="fas fa-plus fa-3x"></i>
+        </button>
+    </div>
     </form>
