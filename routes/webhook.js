@@ -52,7 +52,7 @@ router.post('/', (req, res) => {
 
 	const allIntents = {
 		newsPolitica() {
-			res.json({fulfillmentMessages});
+			res.send({fulfillmentMessages});
 			
 		},
 		newsEsportes() {},
