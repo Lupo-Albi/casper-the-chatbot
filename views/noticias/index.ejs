@@ -2,14 +2,22 @@
 
     <h1>Painel de Controle</h1>
 
-    <div class="container my-3">
+    <div class="container border border-secondary my-3">
+        <div class="row border-bottom border-secondary h-100 align-items-center text-center">
+            <div class="col-1 fs-5">Imagem</div>
+            <div class="col-4 fs-5">Título</div>
+            <div class="col-3 fs-5">Descrição</div>
+            <div class="col-2 fs-5">Tema</div>
+            <div class="col-1 fs-5">Ir para notícia</div>
+        </div>
+
         <% for(let noticia of noticias) { %> 
-            <div class="row">
-                <div class="col-1"><a href="<%= noticia.image_url %>" class="alert-link">Imagem</a></div>
-                <div class="col-3"><strong><%= noticia.title %></strong></div>
-                <div class="col-3"><%= noticia.subtitle %> </div>
-                <div class="col-2"><%= noticia.theme %> </div>
-                <div class="col-1"><a href="<%= noticia.url %>" class="alert-link">Link</a></div>
+            <div class="row border-bottom border-secondary text-center align-items-center">
+                <div class="col-1 border-end border-secondary"><a href="<%= noticia.image_url %>" class="alert-link"><i class="far fa-image fa-2x"></i></a></div>
+                <div class="col-4 border-end border-secondary"><strong><%= noticia.title %></strong></div>
+                <div class="col-3 border-end border-secondary"><%= noticia.subtitle %> </div>
+                <div class="col-2 border-end border-secondary"><%= noticia.theme %> </div>
+                <div class="col-1 border-end border-secondary"><a href="<%= noticia.url %>" class="alert-link"><i class="fas fa-external-link-alt fa-lg"></i></a></div>
                 <div class="col-1">
                     <div class="btn-group" role="group" aria-label="Basic outlined example">
                         <% // Edit Button %> 
