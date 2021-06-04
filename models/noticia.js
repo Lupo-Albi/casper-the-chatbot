@@ -19,10 +19,12 @@ const NoticiaSchema = new Schema({
 		type: String,
 		enum: [
 			'politica',
+			'política',
 			'esportes',
 			'entretenimento',
 			'famosos',
 			'Politica',
+			'Política',
 			'Esportes',
 			'Entretenimento',
 			'Famosos'
@@ -33,6 +35,7 @@ const NoticiaSchema = new Schema({
 	content: { type: String },
 	createdTime: {
 		type: Date,
+		required: true,
 		default: Date.now()
 	}
 });
