@@ -3,9 +3,11 @@ const router = express.Router();
 const Noticia = require('../models/noticia');
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
+const { isLoggedIn } = require('../utils/middleware');
 
 router.get(
 	'/',
+	isLoggedIn,
 	catchAsync(async (req, res) => {
 		const noticias = await Noticia.find();
 		res.render('noticias/index', { title: 'Notícias', noticias });
@@ -13,13 +15,14 @@ router.get(
 	})
 );
 
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
 	res.render('noticias/new', { title: 'Criar nova notícia' });
 	// console.log('Get new view')
 });
 
 router.get(
 	'/:id',
+	isLoggedIn,
 	catchAsync(async (req, res) => {
 		const { id } = req.params;
 		const noticia = await Noticia.findById(id);
@@ -30,6 +33,7 @@ router.get(
 
 router.get(
 	'/:id/edit',
+	isLoggedIn,
 	catchAsync(async (req, res) => {
 		const { id } = req.params;
 		const noticia = await Noticia.findById(id);
@@ -40,6 +44,7 @@ router.get(
 
 router.put(
 	'/:id',
+	isLoggedIn,
 	catchAsync(async (req, res) => {
 		const { id } = req.params;
 		const noticia = await Noticia.findByIdAndUpdate(id, { ...req.body.noticia }, { useFindAndModify: false });
@@ -49,6 +54,7 @@ router.put(
 
 router.post(
 	'/',
+	isLoggedIn,
 	catchAsync(async (req, res) => {
 		if (!req.body.noticia) throw new ExpressError('Invalid campground data', 400);
 		const noticia = new Noticia(req.body.noticia);
@@ -61,6 +67,7 @@ router.post(
 
 router.delete(
 	'/:id',
+	isLoggedIn,
 	catchAsync(async (req, res) => {
 		const { id } = req.params;
 		await Noticia.findByIdAndDelete(id);

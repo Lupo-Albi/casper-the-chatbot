@@ -56,22 +56,24 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
+// flash
 app.use((req, res, next) => {
 	res.locals.success = req.flash('success');
 	res.locals.error = req.flash('error');
 	next();
 });
 
-app.use('/noticias', noticiasRoutes);
-app.use('/webhook', webhookRoute);
-app.use('/', userRoute);
-
-// // passport
+// passport
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+//Routes
+app.use('/noticias', noticiasRoutes);
+app.use('/webhook', webhookRoute);
+app.use('/', userRoute);
 
 // Error Handling
 app.all('*', (req, res, next) => {
