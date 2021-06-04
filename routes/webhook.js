@@ -42,6 +42,8 @@ let genericTemplate = {
 	]
 };
 
+fulfillmentMessages['payload']['facebook']['attachment']['payload']['elements'].push(genericTemplate);
+
 router.post('/', (req, res) => {
 	let body = req.body;
 
@@ -50,7 +52,8 @@ router.post('/', (req, res) => {
 
 	const allIntents = {
 		newsPolitica() {
-			fulfillmentMessages['payload']['facebook']['attachment']['payload']['elements'].push(genericTemplate);
+			res.json({fulfillmentMessages});
+			
 		},
 		newsEsportes() {},
 		newsEntretenimento() {},
