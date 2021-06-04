@@ -5,39 +5,39 @@ const ExpressError = require('../utils/ExpressError');
 const Noticia = require('../models/noticia');
 
 let carousel = {
-	fulfillmentMessages: [
+	"fulfillmentMessages": [
 		{
-			payload: {
-				facebook: {
-					attachment: {
-						payload: {
-							elements: [],
-							template_type: 'generic'
+			"payload": {
+				"facebook": {
+					"attachment": {
+						"payload": {
+							"elements": [],
+							"template_type": 'generic'
 						},
-						type: 'template'
+						"type": 'template'
 					}
 				}
 			},
-			platform: 'FACEBOOK'
+			"platform": 'FACEBOOK'
 		}
 	]
 };
 
 let genericTemplate = {
-	title: 'TITULO',
-	subtitle: 'SUBTITULO',
-	image_url: 'https://st.depositphotos.com/1000459/2436/i/600/depositphotos_24366251-stock-photo-soccer-ball.jpg',
-	default_action: {
-		type: 'web_url',
-		url:
+	"title": 'TITULO',
+	"subtitle": 'SUBTITULO',
+	"image_url": 'https://st.depositphotos.com/1000459/2436/i/600/depositphotos_24366251-stock-photo-soccer-ball.jpg',
+	"default_action": {
+		"type": 'web_url',
+		"url":
 			'https://globoesporte.globo.com/futebol/selecao-brasileira/noticia/sem-everton-ribeiro-tite-comanda-ultimo-treino-na-granja-antes-de-viagem-para-porto-alegre.ghtml'
 	},
-	buttons: [
+	"buttons": [
 		{
-			type: 'web_url',
-			url:
+			"type": 'web_url',
+			"url":
 				'https://globoesporte.globo.com/futebol/selecao-brasileira/noticia/sem-everton-ribeiro-tite-comanda-ultimo-treino-na-granja-antes-de-viagem-para-porto-alegre.ghtml',
-			title: 'Abrir Notícia'
+			"title": 'Abrir Notícia'
 		}
 	]
 };
