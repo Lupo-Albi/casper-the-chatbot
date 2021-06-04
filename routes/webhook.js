@@ -4,6 +4,12 @@ const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
 const Noticia = require('../models/noticia');
 
+let noticia;
+
+let busca = async () => {
+	noticia = await Noticia.findOne({});
+};
+
 router.post('/', (req, res) => {
 	let body = req.body;
 
@@ -22,7 +28,7 @@ router.post('/', (req, res) => {
 										elements: [
 											{
 												subtitle: 'We have the right hat for everyone.',
-												title: 'Welcome!'
+												title: noticia.title
 											},
 											{
 												subtitle: 'We have the right hat for everyone.',
