@@ -6,9 +6,10 @@ module.exports = () => {
 	const uri = process.env.DB_URI;
 
 	connect(uri, {
-		dbName: process.env.DB_NAME,
-		user: process.env.DB_USER,
-		pass: process.env.DB_PASS,
+		// Usar as configurações abaixos se quiser passar o nome do banco de dados, usuário e senha em variáveis separadas da URI de conexão
+		// dbName: process.env.DB_NAME,
+		// user: process.env.DB_USER,
+		// pass: process.env.DB_PASS,
 		useNewUrlParser: true,
 		useFindAndModify: false,
 		useUnifiedTopology: true,

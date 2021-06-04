@@ -31,10 +31,16 @@ router.get('/', (req, res) => {
 	res.render('users/login', { title: 'Acessar' });
 });
 
-router.post('/', passport.authenticate('local', { failureFlash: true, failureRedirect: '/' }), (req, res) => {
-	req.flash('success', 'Bem-vindo');
-	res.redirect('/noticias');
-});
+router.post(
+	'/',
+	passport.authenticate('local', {
+		successRedirect: '/noticias',
+		successFlash: 'Bem-vindo',
+		failureFlash: 'Senha ou Usuário inválidos',
+		failureRedirect: '/'
+	}),
+	(req, res) => {}
+);
 
 router.get('/logout', (req, res) => {
 	req.logout();

@@ -37,6 +37,10 @@ router.get(
 	catchAsync(async (req, res) => {
 		const { id } = req.params;
 		const noticia = await Noticia.findById(id);
+		if (!noticia) {
+			req.flash('error', 'Notícia não encontrada');
+			return res.redirect('/noticias');
+		}
 		res.render('noticias/edit', { title: 'Editar', noticia });
 		// console.log('Get edit view');
 	})
@@ -48,6 +52,7 @@ router.put(
 	catchAsync(async (req, res) => {
 		const { id } = req.params;
 		await Noticia.findByIdAndUpdate(id, { ...req.body.noticia }, { useFindAndModify: false });
+		req.flash('success', 'Notícia salva com sucesso');
 		res.redirect('/noticias');
 	})
 );
@@ -71,6 +76,7 @@ router.delete(
 	catchAsync(async (req, res) => {
 		const { id } = req.params;
 		await Noticia.findByIdAndDelete(id);
+		req.flash('success', 'Notícia deletada');
 		res.redirect('/noticias');
 	})
 );

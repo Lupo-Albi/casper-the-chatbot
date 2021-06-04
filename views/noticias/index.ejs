@@ -1,26 +1,26 @@
 <% layout('layouts/boilerplate')  %> 
 
-    <h1>Im the index</h1>
-
-    <a href="/logout">Logout</a>
+    <h1>Painel de Controle</h1>
 
     <h2>Vou te mostrar todas as notícias que temos em nosso banco de dados</h2>
 
     <div class="container my-3">
         <% for(let noticia of noticias) { %> 
             <div class="row">
-                <div class="col-1"><a href="<%= noticia.image_url %>">Imagem</a></div>
+                <div class="col-1"><a href="<%= noticia.image_url %>" class="alert-link">Imagem</a></div>
                 <div class="col-3"><strong><%= noticia.title %></strong></div>
                 <div class="col-3"><%= noticia.subtitle %> </div>
                 <div class="col-2"><%= noticia.theme %> </div>
-                <div class="col-1"><a href="<%= noticia.url %>">Link</a></div>
+                <div class="col-1"><a href="<%= noticia.url %>" class="alert-link">Link</a></div>
                 <div class="col-1">
                     <div class="btn-group" role="group" aria-label="Basic outlined example">
+                        <% // Edit Button %> 
                         <form method="GET" action="/noticias/<%= noticia._id %>/edit">
                             <button type="submit" class="btn btn-outline-success"><i class="fas fa-edit"></i></button>
                         </form>
+                         <% // Delete Button %> 
                         <form method="POST" action="/noticias/<%= noticia._id %>?_method=DELETE">
-                            <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                            <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button> 
                         </form>
                       </div>
                 </div>

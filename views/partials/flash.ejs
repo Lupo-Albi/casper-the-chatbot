@@ -1,0 +1,19 @@
+<% if (success && success.length) { %> 
+<div class="alert alert-success d-flex align-items-center alert-dismissible fade show mt-3" role="alert">
+    <i class="fas fa-check-circle bi flex-shrink-0 me-2" width="24" height="24" role="img"></i>
+    <div>
+        <%= success  %> 
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% } %> 
+
+<% if (error && error.length) { %> 
+    <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show mt-3" role="alert">
+        <i class="fas fa-exclamation-circle bi flex-shrink-0 me-2" width="24" height="24" role="img"></i>
+        <div>
+            <%= error  %> 
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %> 

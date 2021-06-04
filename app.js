@@ -8,16 +8,15 @@ const path = require('path');
 const session = require('express-session');
 const flash = require('connect-flash');
 const ejsMate = require('ejs-mate');
-const ExpressError = require('./utils/ExpressError');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const ExpressError = require('./utils/ExpressError');
 const User = require('./models/user');
-const app = express();
 const noticiasRoutes = require('./routes/noticias');
 const webhookRoute = require('./routes/webhook');
 const userRoute = require('./routes/users');
 const mongoSanitize = require('express-mongo-sanitize');
-// const MongoDBStore = require('connect-mongo');
+const app = express();
 
 // View engine setup
 app.engine('ejs', ejsMate);
@@ -31,19 +30,8 @@ app.use(mongoSanitize());
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!'; //randomkeygen
 
-// const store = new MongoDBStore({
-// 	url: process.env.DB_URL,
-// 	secret,
-// 	touchAfter: 24 * 60 * 60
-// });
-
-// store.on('error', function(e) {
-// 	console.log('Session store error!', e);
-// });
-
 // Session
 const sessionConfig = {
-	// store,
 	name: 'casperSession',
 	secret,
 	resave: false,
