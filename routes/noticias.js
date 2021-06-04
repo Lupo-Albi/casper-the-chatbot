@@ -61,7 +61,7 @@ router.post(
 	'/',
 	isLoggedIn,
 	catchAsync(async (req, res) => {
-		if (!req.body.noticia) throw new ExpressError('Invalid campground data', 400);
+		if (!req.body.noticia) throw new ExpressError('Dados inválidos!', 400);
 		const noticia = new Noticia(req.body.noticia);
 		await noticia.save();
 		req.flash('success', 'Notícia criada com sucesso');

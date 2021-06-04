@@ -35,6 +35,7 @@ router.post('/', (req, res) => {
 	allIntents[intentName]();
 });
 
+// From Facebook Docs
 router.get('/', (req, res) => {
 	// Your verify token. Should be a random string.
 	let VERIFY_TOKEN = 'casperbottoken';
