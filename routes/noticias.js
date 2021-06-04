@@ -53,6 +53,7 @@ router.post(
 		if (!req.body.noticia) throw new ExpressError('Invalid campground data', 400);
 		const noticia = new Noticia(req.body.noticia);
 		await noticia.save();
+		req.flash('success', 'Notícia criada com sucesso');
 		res.redirect('/noticias');
 		// console.log("Post new noticia")
 	})

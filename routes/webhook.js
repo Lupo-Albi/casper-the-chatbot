@@ -1,23 +1,9 @@
-'use strict';
-// Imports dependencies and set up http server
-require('dotenv/config');
-require('./initDB')();
 const express = require('express');
-const methodOverride = require('method-override');
-const path = require('path');
-const app = express();
-const noticiasRoutes = require('./routes/noticias');
-const ExpressError = require('./utils/ExpressError');
+const router = express.Router();
+const catchAsync = require('../utils/catchAsync');
+const ExpressError = require('../utils/ExpressError');
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(methodOverride('_method'));
-app.use('/noticias', noticiasRoutes);
-app.set('views', path.join(__dirname, '/views'));
-app.set('view engine', 'ejs');
-
-// Creates the endpoint for our webhook
-app.post('/webhook', (req, res) => {
+router.post('/', (req, res) => {
 	let body = req.body;
 
 	let intentName = body.queryResult.intent.displayName;
@@ -49,7 +35,7 @@ app.post('/webhook', (req, res) => {
 	allIntents[intentName]();
 });
 
-app.get('/webhook', (req, res) => {
+router.get('/', (req, res) => {
 	// Your verify token. Should be a random string.
 	let VERIFY_TOKEN = 'casperbottoken';
 
@@ -72,15 +58,4 @@ app.get('/webhook', (req, res) => {
 	}
 });
 
-app.all('*', (req, res, next) => {
-	next(new ExpressError('Page Not Found', 404));
-});
-
-app.use((err, req, res, next) => {
-	const { statusCode = 500, message = 'Something went wrong' } = err;
-	if (!err.message) err.message = 'Algo deu errado';
-	res.status(statusCode).render('error', { title: 'Error', err });
-});
-
-// Sets server port and logs message on success
-app.listen(process.env.PORT || 3000, () => console.log('app is listening'));
+module.exports = router;

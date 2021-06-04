@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const noticiaSchema = new Schema({
+const NoticiaSchema = new Schema({
 	title: {
 		type: String,
 		required: true
@@ -28,8 +28,8 @@ const noticiaSchema = new Schema({
 	}
 });
 
-noticiaSchema.statics.findTen = function(theme) {
+NoticiaSchema.statics.findTen = function(theme) {
 	this.find({ theme: theme }).sort({ createdTime: -1 }).limit(10).then((data) => console.log(data));
 };
 
-module.exports = mongoose.model('Noticia', noticiaSchema);
+module.exports = mongoose.model('Noticia', NoticiaSchema);

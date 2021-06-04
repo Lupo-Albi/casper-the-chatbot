@@ -1,4 +1,4 @@
-<%-  include('../partials/header') %>
+<% layout('layouts/boilerplate')  %> 
 
 <form method="POST" action="/noticias/<%- noticia._id %>?_method=PUT">
     <div>
@@ -41,5 +41,3 @@
 <form method="POST" action="/noticias/<%- noticia._id %>?_method=DELETE">
     <button>DELETE</button>
 </form>
-
-<%- include('../partials/footer') %>
