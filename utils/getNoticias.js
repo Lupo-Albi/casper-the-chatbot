@@ -31,8 +31,7 @@ const nothingFound = [
 ];
 
 const getNoticias = catchAsync(async (req, res, theme) => {
-	// const query = await Noticia.findTen(theme);
-	const query = await Noticia.find({ theme: theme }).limit(1);
+	const query = await Noticia.findTen(theme);
 	// console.log(query);
 	// Checks if the query returned any results
 	if (Array.isArray(query) && query.length) {
@@ -59,11 +58,11 @@ const getNoticias = catchAsync(async (req, res, theme) => {
 			elements.push(templateCard);
 		});
 
-		// carouselPayload[0].payload.facebook.attachment.payload.elements = elements;
-		res.json({ fulfilmentMessages: elements });
+		carouselPayload[0].payload.facebook.attachment.payload.elements = elements;
+		res.send({ fulfilmentMessages: carouselPayload });
 	} else {
 		// Send this message if no result was found
-		res.json({ fulfilmentMessages: nothingFound });
+		res.send({ fulfillmentMessages: nothingFound });
 	}
 });
 
