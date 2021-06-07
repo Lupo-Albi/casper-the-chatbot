@@ -59,8 +59,8 @@ const getNoticias = catchAsync(async (req, res, theme) => {
 			elements.push(templateCard);
 		});
 
-		carouselPayload[0].payload.facebook.attachment.payload.elements = elements;
-		res.json({ fulfilmentMessages: carouselPayload });
+		// carouselPayload[0].payload.facebook.attachment.payload.elements = elements;
+		res.json({ fulfilmentMessages: elements });
 	} else {
 		// Send this message if no result was found
 		res.json({ fulfilmentMessages: nothingFound });

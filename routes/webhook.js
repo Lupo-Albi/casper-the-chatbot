@@ -4,8 +4,7 @@ const getNoticias = require('../utils/getNoticias');
 const getTheme = require('../utils/getTheme'); // Add ou modify themes here
 
 router.post('/', (req, res) => {
-	let body = req.body;
-	let intentName = body.queryResult.intent.displayName;
+	let intentName = req.body.queryResult.intent.displayName;
 	// console.log(intentName);
 	const theme = getTheme[intentName]();
 	getNoticias(req, res, theme);
