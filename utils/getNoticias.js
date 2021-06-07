@@ -60,10 +60,10 @@ const getNoticias = catchAsync(async (req, res, theme) => {
 		});
 
 		carouselPayload[0].payload.facebook.attachment.payload.elements = elements;
-		res.send({ fulfilmentMessages: carouselPayload });
+		res.json({ fulfilmentMessages: carouselPayload });
 	} else {
 		// Send this message if no result was found
-		res.send({ fulfilmentMessages: nothingFound });
+		res.json({ fulfilmentMessages: nothingFound });
 	}
 });
 
