@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(mongoSanitize());
 
-const secret = process.env.SECRET || 'thisshouldbeabettersecret!'; //randomkeygen
+const secret = process.env.SECRET;
 
 // Session
 const sessionConfig = {
@@ -62,9 +62,9 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //Routes
-app.use('/noticias', noticiasRoutes);
-app.use('/webhook', webhookRoute);
-app.use('/', userRoute);
+app.use('/noticias', noticiasRoutes); // Dashboard
+app.use('/webhook', webhookRoute); // For Dialogflow
+app.use('/', userRoute); // Login page
 
 // Error Handling
 app.all('*', (req, res, next) => {
@@ -72,7 +72,7 @@ app.all('*', (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-	const { statusCode = 500, message = 'Something went wrong' } = err;
+	const { statusCode = 500, message = 'Algo deu errado' } = err;
 	if (!err.message) err.message = 'Algo deu errado';
 	res.status(statusCode).render('error', { title: 'Error', err });
 });

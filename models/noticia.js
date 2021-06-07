@@ -41,7 +41,7 @@ const NoticiaSchema = new Schema({
 });
 
 NoticiaSchema.statics.findTen = function(theme) {
-	this.find({ theme: theme }).sort({ createdTime: -1 }).limit(10).then((data) => console.log(data));
+	return this.find({ theme: theme }).sort({ createdTime: -1 }).limit(10);
 };
 
 module.exports = mongoose.model('Noticia', NoticiaSchema);
