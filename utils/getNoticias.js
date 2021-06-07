@@ -26,8 +26,10 @@ const getNoticias = catchAsync(async (req, res, theme) => {
 					facebook: {
 						attachment: {
 							payload: {
-								elements // We put elements array here
-							}
+								elements, // We put elements array here
+								template_type: 'generic'
+							},
+							type: 'template'
 						}
 					}
 				},
