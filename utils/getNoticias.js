@@ -10,7 +10,7 @@ const carouselPayload = [
 			facebook: {
 				attachment: {
 					payload: {
-						// We put elements array here
+						elements // We put elements array here
 					}
 				}
 			}
@@ -59,7 +59,7 @@ const getNoticias = catchAsync(async (req, res, theme) => {
 			elements.push(templateCard);
 		});
 
-		carouselPayload[0].payload.facebook.attachment.payload = elements;
+		carouselPayload[0].payload.facebook.attachment.payload.elements = elements;
 		res.send({ fulfilmentMessages: carouselPayload });
 	} else {
 		// Send this message if no result was found
