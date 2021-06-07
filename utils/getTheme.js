@@ -11,5 +11,8 @@ module.exports = {
 	},
 	newsFamosos() {
 		return 'Famosos';
+	},
+	newsCulinaria() {
+		return 'Culinária';
 	}
 };
