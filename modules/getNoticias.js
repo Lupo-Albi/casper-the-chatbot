@@ -1,5 +1,5 @@
 const Noticia = require('../models/noticia');
-const catchAsync = require('./catchAsync');
+const catchAsync = require('../utils/catchAsync');
 
 // Messenger Quick Reply Template
 const nothingFound = [

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const getNoticias = require('../utils/getNoticias');
-const getTheme = require('../utils/getTheme'); // Add ou modify themes here
+const getNoticias = require('../modules/getNoticias');
+const getTheme = require('../modules/getTheme'); // Add ou modify themes here
 
 router.post('/', (req, res) => {
 	let intentName = req.body.queryResult.intent.displayName;

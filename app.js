@@ -38,7 +38,7 @@ const sessionConfig = {
 	saveUninitialized: true,
 	cookie: {
 		httpOnly: true,
-		secure: true,
+		// secure: true,
 		expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1000 ms in a second, 60 seconds in a minute, 60 minutes in an hour, 24 hours in a day and 7 days in a week
 		maxAge: 1000 * 60 * 60 * 24 * 7
 	}
@@ -63,8 +63,8 @@ passport.deserializeUser(User.deserializeUser());
 
 //Routes
 app.use('/noticias', noticiasRoutes); // Dashboard
-app.use('/webhook', webhookRoute); // For Dialogflow
 app.use('/', userRoute); // Login page
+app.use('/webhook', webhookRoute); // For Dialogflow
 
 // Error Handling
 app.all('*', (req, res, next) => {
