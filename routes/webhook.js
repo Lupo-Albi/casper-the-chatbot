@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
 // From Facebook Docs
 router.get('/', async (req, res) => {
 	// const theme = getTheme['newsEntretenimento']();
-	getNoticias(req, res, 'Culinária');
+	getNoticias(req, res, 'Política');
 });
 
 module.exports = router;

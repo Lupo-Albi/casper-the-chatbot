@@ -64,6 +64,21 @@ const getNoticias = catchAsync(async (req, res, theme) => {
 		// Send this message if no result was found
 		res.send({ fulfillmentMessages: nothingFound });
 	}
+
+	carouselPayload = [
+		{
+			payload: {
+				facebook: {
+					attachment: {
+						payload: {
+							elements: [] // We put elements array here
+						}
+					}
+				}
+			},
+			platform: 'FACEBOOK'
+		}
+	];
 });
 
 module.exports = getNoticias;
